@@ -1,0 +1,21 @@
+{
+    "name": "regnerisch/map",
+    "version": "0.1.0",
+    "description": "A simple map library",
+    "type": "library",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Jonas Regner",
+            "email": "regnerjonas@pm.me"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Regnerisch\\Map\\": "src/"
+        }
+    }
+}

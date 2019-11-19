@@ -1,0 +1,16 @@
+<?php
+
+namespace Regnerisch\Map;
+
+final class DoubleMap extends Map
+{
+	public function __construct(iterable $map)
+	{
+		$this->addEach($map);
+	}
+
+	protected function getType(): ?string
+	{
+		return 'double';
+	}
+}

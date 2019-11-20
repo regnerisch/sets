@@ -4,7 +4,7 @@ namespace Regnerisch\Map;
 
 use Regnerisch\Map\Traits\MapHelper;
 
-final class MixedMap extends Map
+final class BoolMap extends Map
 {
 	use MapHelper;
 
@@ -15,6 +15,6 @@ final class MixedMap extends Map
 
 	protected function getType(): ?string
 	{
-		return null;
+		return 'boolean';
 	}
 }

@@ -2,9 +2,13 @@
 
 namespace Regnerisch\Map;
 
+use Regnerisch\Map\Traits\MapHelper;
+
 final class DoubleMap extends Map
 {
-	public function __construct(iterable $map)
+	use MapHelper;
+
+	public function __construct(array $map)
 	{
 		$this->addEach($map);
 	}

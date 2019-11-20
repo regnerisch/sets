@@ -2,11 +2,13 @@
 
 namespace Regnerisch\Map;
 
-abstract class Map extends ArrayAbstract
+use Regnerisch\Map\Interfaces\MapInterface;
+
+abstract class Map extends ArrayAbstract implements MapInterface
 {
 	abstract protected function getType(): ?string;
 
-	protected function addEach(iterable $map): void
+	protected function addEach(array $map): void
 	{
 		$type = $this->getType();
 
@@ -20,28 +22,10 @@ abstract class Map extends ArrayAbstract
 		}
 	}
 
-	public function add($value): self
+	protected function setEach(array $map): void
 	{
-		$this->addEach([$value]);
-
-		return $this;
-	}
-
-	public function has($value): bool
-	{
-		return in_array($value, $this->map, true);
-	}
-
-	public function remove($value): bool
-	{
-		$copy = $this->map;
-
-		if (false !== $key = array_search($value, $this->map, true)) {
-			unset($copy[$key]);
-			$this->map = array_values($copy);
-		}
-
-		return true;
+		$this->map = [];
+		$this->addEach($map);
 	}
 
 	public function toArray(): array

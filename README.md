@@ -12,6 +12,7 @@ $set = new BoolSet([true, false, false, true]);
 $set = new DetectTypeSet([[], [], [], []]);
 $set = new DoubleSet([1.1, 2.2, 3.3]);
 $set = new IntegerSet([1, 2, 3]);
+$set = new InterfaceSet([new Car(), new Ship(), new Plane()], TransportInterface::class);
 $set = new MixedSet(['A', 1, 1.1]);
 $set = new StringSet(['A', 'B', 'C']);
 $set = new TypeSet([new MyItem('A'), new MyItem('B')], MyItem::class);
@@ -47,27 +48,27 @@ To create your own set just extend the `Set` class.
 class MySet extends Set
 {
     // Add some base array functionality
-    use SetHelper;
+    use ArrayHelper;
 
-    public function __construct(iterable $set) 
+    public function __construct(array $array) 
     {
-        $this->addEach($set);
+        $this->addEach($array);
     }
 
     protected function getType(): ?string
     {
-        return MyType::class
+        return MyType::class;
     }
 }
 ```
 This creates a set which only allows values from `MyType` class. Now you can add custom functions and extend functionality.
 
-If you use `SetHelper` trait you may also overwrite its `instanceFromArray` method, if your constructor uses another pattern than `__construct(array $array)`
+If you use `ArrayHelper` trait you may also overwrite its `instanceFromArray` method, if your constructor uses another pattern than `__construct(array $array)`
 ```php
 class MySet extends Set
 {
     // Add some base array functionality
-    use SetHelper;
+    use ArrayHelper;
 
     public function __construct(array $array, $customParam1, $customParam2) 
     {
@@ -78,12 +79,12 @@ class MySet extends Set
 
     protected function getType(): ?string
     {
-        return MyType::class
+        return MyType::class;
     }
 
     protected function instanceFromArray(array $array) 
     {
-        return new self($array, 'MyCustomParam1', 'MyCustomParam2')
+        return new self($array, $this->myCustomParam1, 'MyCustomParam2');
     }
 } 
 ```

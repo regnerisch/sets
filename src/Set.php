@@ -14,11 +14,11 @@ abstract class Set extends ArrayAbstract implements SetInterface
 
 		foreach ($map as $item) {
 			$itemType = is_object($item) ? get_class($item) : gettype($item);
-			if (null === $type || $itemType === $type) {
-				$this->map[] = $item;
-			} else {
+			if (null !== $type && $itemType !== $type) {
 				throw new \InvalidArgumentException(sprintf('Invalid type! Got %s expected %s', $itemType, $type));
 			}
+
+			$this->map[] = $item;
 		}
 	}
 

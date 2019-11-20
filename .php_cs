@@ -11,7 +11,6 @@ return PhpCsFixer\Config::create()
 		'@PSR2' => true,
 		'@Symfony' => true,
 		'concat_space' => ['spacing' => 'one'],
-		'phpdoc_summary' => true,
 		'indentation_type' => true
 	])
 	->setIndent("\t")

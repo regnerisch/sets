@@ -4,7 +4,7 @@ namespace Regnerisch\Sets;
 
 use Regnerisch\Sets\Traits\ArrayHelper;
 
-final class InterfaceSet extends SetAbstract
+final class InterfaceSet extends Set
 {
 	use ArrayHelper;
 

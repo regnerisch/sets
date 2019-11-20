@@ -1,16 +1,16 @@
 <?php
 
-namespace Regnerisch\Map\Traits;
+namespace Regnerisch\Sets\Traits;
 
-use Regnerisch\Map\BoolMap;
-use Regnerisch\Map\DoubleMap;
-use Regnerisch\Map\IntegerMap;
-use Regnerisch\Map\Interfaces\MapInterface;
-use Regnerisch\Map\TypeMap;
+use Regnerisch\Sets\BoolSet;
+use Regnerisch\Sets\DoubleSet;
+use Regnerisch\Sets\IntegerSet;
+use Regnerisch\Sets\Interfaces\SetInterface;
+use Regnerisch\Sets\TypeSet;
 
-trait MapHelper
+trait ArrayHelper
 {
-	public function diff(MapInterface ...$map): self
+	public function diff(SetInterface ...$map): self
 	{
 		$arrays = [];
 		foreach ($map as $item) {
@@ -46,7 +46,7 @@ trait MapHelper
 		return in_array($value, $this->map, true);
 	}
 
-	public function intersect(MapInterface ...$map): self
+	public function intersect(SetInterface ...$map): self
 	{
 		$arrays = [];
 		foreach ($map as $item) {
@@ -137,7 +137,7 @@ trait MapHelper
 
 	protected function instanceFromArray(array $array): self
 	{
-		if (self::class === TypeMap::class) {
+		if (self::class === TypeSet::class) {
 			return new self($array, $this->getType());
 		}
 
@@ -147,9 +147,9 @@ trait MapHelper
 	protected function sortFlag(): int
 	{
 		switch (self::class) {
-			case BoolMap::class:
-			case DoubleMap::class:
-			case IntegerMap::class:
+			case BoolSet::class:
+			case DoubleSet::class:
+			case IntegerSet::class:
 				return SORT_NUMERIC;
 			default:
 				return SORT_STRING;

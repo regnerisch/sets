@@ -1,6 +1,6 @@
 {
-    "name": "regnerisch/map",
-    "version": "0.2.0",
+    "name": "regnerisch/sets",
+    "version": "0.3.0",
     "description": "A simple map library",
     "type": "library",
     "license": "ISC",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Regnerisch\\Map\\": "src/"
+            "Regnerisch\\Sets\\": "src/"
         }
     },
     "require-dev": {

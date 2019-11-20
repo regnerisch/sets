@@ -1,10 +1,10 @@
 <?php
 
-namespace Regnerisch\Map;
+namespace Regnerisch\Sets;
 
-use Regnerisch\Map\Interfaces\MapInterface;
+use Regnerisch\Sets\Interfaces\SetInterface;
 
-abstract class Map extends ArrayAbstract implements MapInterface
+abstract class Set extends ArrayAbstract implements SetInterface
 {
 	abstract protected function getType(): ?string;
 

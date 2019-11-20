@@ -1,6 +1,6 @@
 <?php
 
-namespace Regnerisch\Map;
+namespace Regnerisch\Sets;
 
 abstract class ArrayAbstract implements \Iterator, \Countable
 {

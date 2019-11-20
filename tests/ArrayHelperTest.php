@@ -1,16 +1,16 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Regnerisch\Map\StringMap;
-use Regnerisch\Map\TypeMap;
+use Regnerisch\Sets\StringSet;
+use Regnerisch\Sets\TypeSet;
 
-class MapHelperTest extends TestCase
+class ArrayHelperTest extends TestCase
 {
 	public function testDiff()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
-		$map1 = new StringMap(['A', 'C']);
-		$map2 = new StringMap(['D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
+		$map1 = new StringSet(['A', 'C']);
+		$map2 = new StringSet(['D']);
 
 		$this->assertEquals(
 			['B', 'D'],
@@ -25,13 +25,13 @@ class MapHelperTest extends TestCase
 
 	public function testEach()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$newMap = $map->each(static function ($item) {
 			return '_' . $item . '_';
 		});
 
-		$this->assertInstanceOf(StringMap::class, $newMap);
+		$this->assertInstanceOf(StringSet::class, $newMap);
 
 		$this->assertEquals(
 			['A', 'B', 'C', 'D'],
@@ -45,13 +45,13 @@ class MapHelperTest extends TestCase
 
 		// ---
 
-		$map = new TypeMap([1, 2, 3, 4], 'integer');
+		$map = new TypeSet([1, 2, 3, 4], 'integer');
 
 		$newMap = $map->each(static function ($item) {
 			return $item * 2;
 		});
 
-		$this->assertInstanceOf(TypeMap::class, $newMap);
+		$this->assertInstanceOf(TypeSet::class, $newMap);
 
 		$this->assertEquals(
 			[1, 2, 3, 4],
@@ -66,13 +66,13 @@ class MapHelperTest extends TestCase
 
 	public function testFilter()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$newMap = $map->filter(static function ($item) {
 			return in_array($item, ['A', 'D']);
 		});
 
-		$this->assertInstanceOf(StringMap::class, $newMap);
+		$this->assertInstanceOf(StringSet::class, $newMap);
 
 		$this->assertEquals(
 			['A', 'B', 'C', 'D'],
@@ -86,13 +86,13 @@ class MapHelperTest extends TestCase
 
 		// ---
 
-		$map = new TypeMap([1, 2, 3, 4], 'integer');
+		$map = new TypeSet([1, 2, 3, 4], 'integer');
 
 		$newMap = $map->filter(static function ($item) {
 			return 0 === $item % 2;
 		});
 
-		$this->assertInstanceOf(TypeMap::class, $newMap);
+		$this->assertInstanceOf(TypeSet::class, $newMap);
 
 		$this->assertEquals(
 			[1, 2, 3, 4],
@@ -107,7 +107,7 @@ class MapHelperTest extends TestCase
 
 	public function testGet()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			'A',
@@ -117,7 +117,7 @@ class MapHelperTest extends TestCase
 
 	public function testHas()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertTrue($map->has('A'));
 		$this->assertFalse($map->has('E'));
@@ -125,9 +125,9 @@ class MapHelperTest extends TestCase
 
 	public function testIntersect()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
-		$map1 = new StringMap(['A', 'C']);
-		$map2 = new StringMap(['A']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
+		$map1 = new StringSet(['A', 'C']);
+		$map2 = new StringSet(['A']);
 
 		$this->assertEquals(
 			['A', 'C'],
@@ -142,7 +142,7 @@ class MapHelperTest extends TestCase
 
 	public function testPad()
 	{
-		$map = new StringMap(['A', 'B']);
+		$map = new StringSet(['A', 'B']);
 
 		$this->assertEquals(
 			['A', 'B', 'C', 'C'],
@@ -157,7 +157,7 @@ class MapHelperTest extends TestCase
 
 	public function testPush()
 	{
-		$map = new StringMap(['A', 'B', 'C']);
+		$map = new StringSet(['A', 'B', 'C']);
 		$map->push('D');
 
 		$this->assertEquals(
@@ -171,7 +171,7 @@ class MapHelperTest extends TestCase
 
 	public function testPop()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			'D',
@@ -186,7 +186,7 @@ class MapHelperTest extends TestCase
 
 	public function testReverse()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			['D', 'C', 'B', 'A'],
@@ -196,7 +196,7 @@ class MapHelperTest extends TestCase
 
 	public function testSearch()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			2,
@@ -206,7 +206,7 @@ class MapHelperTest extends TestCase
 
 	public function testShift()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			'A',
@@ -216,7 +216,7 @@ class MapHelperTest extends TestCase
 
 	public function testSlice()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			['C', 'D'],
@@ -231,7 +231,7 @@ class MapHelperTest extends TestCase
 
 	public function testSort()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			['D', 'C', 'B', 'A'],
@@ -243,7 +243,7 @@ class MapHelperTest extends TestCase
 
 	public function testSplice()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertEquals(
 			['A', 'E', 'F', 'D'],
@@ -253,14 +253,14 @@ class MapHelperTest extends TestCase
 
 	public function shuffle()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D']);
+		$map = new StringSet(['A', 'B', 'C', 'D']);
 
 		$this->assertIsArray($map->toArray());
 	}
 
 	public function testUnique()
 	{
-		$map = new StringMap(['A', 'B', 'C', 'D', 'A']);
+		$map = new StringSet(['A', 'B', 'C', 'D', 'A']);
 
 		$this->assertEquals(
 			['A', 'B', 'C', 'D'],

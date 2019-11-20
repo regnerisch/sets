@@ -1,12 +1,12 @@
 <?php
 
-namespace Regnerisch\Map;
+namespace Regnerisch\Sets;
 
-use Regnerisch\Map\Traits\MapHelper;
+use Regnerisch\Sets\Traits\ArrayHelper;
 
-final class DetectTypeMap extends Map
+final class DetectTypeSet extends Set
 {
-	use MapHelper;
+	use ArrayHelper;
 
 	private $type;
 

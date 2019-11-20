@@ -1,12 +1,12 @@
 <?php
 
-namespace Regnerisch\Map;
+namespace Regnerisch\Sets;
 
-use Regnerisch\Map\Traits\MapHelper;
+use Regnerisch\Sets\Traits\ArrayHelper;
 
-final class StringMap extends Map
+final class StringSet extends Set
 {
-	use MapHelper;
+	use ArrayHelper;
 
 	public function __construct(array $array)
 	{

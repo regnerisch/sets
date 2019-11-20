@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Regnerisch\Sets;
 
 use Regnerisch\Sets\Traits\ArrayHelper;

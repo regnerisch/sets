@@ -17,7 +17,7 @@ $set = new MixedSet(['A', 1, 1.1]);
 $set = new StringSet(['A', 'B', 'C']);
 $set = new TypeSet([new MyItem('A'), new MyItem('B')], MyItem::class);
 ```
-If you pass a wrong value, an InvalidArgumentException will be thrown.
+If you pass a wrong value, an `InvalidArgumentException` will be thrown.
 When using `DetectTypeSet` the allowed type will be detected automatically from the first value. All following types must match this requirement.
 
 ### API

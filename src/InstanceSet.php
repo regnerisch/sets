@@ -4,15 +4,15 @@ namespace Regnerisch\Sets;
 
 use Regnerisch\Sets\Traits\ArrayHelper;
 
-final class InterfaceSet extends Set
+final class InstanceSet extends Set
 {
 	use ArrayHelper;
 
 	private $type;
 
-	public function __construct(array $array, string $interface)
+	public function __construct(array $array, string $instance)
 	{
-		$this->type = $interface;
+		$this->type = $instance;
 		$this->addEach($array);
 	}
 
@@ -28,7 +28,7 @@ final class InterfaceSet extends Set
 		foreach ($map as $item) {
 			$itemType = is_object($item) ? get_class($item) : gettype($item);
 			if (null !== $type && !$item instanceof $type) {
-				throw new \InvalidArgumentException(sprintf('Invalid type! %s does not implement %s', $itemType, $type));
+				throw new \InvalidArgumentException(sprintf('Invalid type! %s is not an instance of %s', $itemType, $type));
 			}
 
 			$this->map[] = $item;

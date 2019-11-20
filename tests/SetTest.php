@@ -4,10 +4,11 @@ use PHPUnit\Framework\TestCase;
 use Regnerisch\Sets\BoolSet;
 use Regnerisch\Sets\DetectTypeSet;
 use Regnerisch\Sets\DoubleSet;
+use Regnerisch\Sets\InstanceSet;
 use Regnerisch\Sets\IntegerSet;
 use Regnerisch\Sets\Interfaces\SetInterface;
-use Regnerisch\Sets\InterfaceSet;
 use Regnerisch\Sets\MixedSet;
+use Regnerisch\Sets\Set;
 use Regnerisch\Sets\StringSet;
 use Regnerisch\Sets\TypeSet;
 
@@ -64,16 +65,22 @@ class SetTest extends TestCase
 		new IntegerSet(['1', 2, 3, 4]);
 	}
 
-	public function testInterfaceSet(): void
+	public function testInstanceSet(): void
 	{
-		$map = new InterfaceSet([new BoolSet([]), new DoubleSet([])], SetInterface::class);
+		$map = new InstanceSet([new BoolSet([]), new DoubleSet([])], SetInterface::class);
+		$this->assertEquals(
+			[new BoolSet([]), new DoubleSet([])],
+			$map->toArray()
+		);
+
+		$map = new InstanceSet([new BoolSet([]), new DoubleSet([])], Set::class);
 		$this->assertEquals(
 			[new BoolSet([]), new DoubleSet([])],
 			$map->toArray()
 		);
 
 		$this->expectException(InvalidArgumentException::class);
-		new InterfaceSet([new BoolSet([]), new DoubleSet([]), new stdClass()], SetInterface::class);
+		new InstanceSet([new BoolSet([]), new DoubleSet([]), new stdClass()], SetInterface::class);
 	}
 
 	public function testMixedSet(): void

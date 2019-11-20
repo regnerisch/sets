@@ -6,15 +6,15 @@ use Regnerisch\Map\Traits\MapHelper;
 
 final class StringMap extends Map
 {
-	use MapHelper;
+    use MapHelper;
 
-	public function __construct(array $array)
-	{
-		$this->addEach($array);
-	}
+    public function __construct(array $array)
+    {
+        $this->addEach($array);
+    }
 
-	protected function getType(): ?string
-	{
-		return 'string';
-	}
+    protected function getType(): ?string
+    {
+        return 'string';
+    }
 }

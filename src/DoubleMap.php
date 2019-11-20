@@ -6,15 +6,15 @@ use Regnerisch\Map\Traits\MapHelper;
 
 final class DoubleMap extends Map
 {
-	use MapHelper;
+    use MapHelper;
 
-	public function __construct(array $map)
-	{
-		$this->addEach($map);
-	}
+    public function __construct(array $map)
+    {
+        $this->addEach($map);
+    }
 
-	protected function getType(): ?string
-	{
-		return 'double';
-	}
+    protected function getType(): ?string
+    {
+        return 'double';
+    }
 }

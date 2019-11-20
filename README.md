@@ -22,7 +22,7 @@ When using `DetectTypeSet` the allowed type will be detected automatically from 
 ### API
 ```php
 $set->diff($set1, $set2) // same as array_diff
-$set->each($callable) // same as array_set
+$set->each($callable) // same as array_map
 $set->filter($callable) // same as array_filter
 $set->get(0) // get value with index 0
 $set->has('A') // check whether a value exists

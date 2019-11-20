@@ -31,6 +31,9 @@ class SetTest extends TestCase
 			$map->toArray()
 		);
 
+		$map = new DetectTypeSet([]);
+		$this->assertNull($map->getType());
+
 		$this->expectException(InvalidArgumentException::class);
 		new DetectTypeSet([[], [], '[]', []]);
 	}

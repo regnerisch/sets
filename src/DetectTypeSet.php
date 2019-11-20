@@ -12,13 +12,15 @@ final class DetectTypeSet extends Set
 
 	public function __construct(array $array)
 	{
-		$item = $array[array_key_first($array)];
-		$this->type = is_object($item) ? get_class($item) : gettype($item);
+		if (!empty($array)) {
+			$item = reset($array);
+			$this->type = is_object($item) ? get_class($item) : gettype($item);
+		}
 
 		$this->addEach($array);
 	}
 
-	protected function getType(): ?string
+	public function getType(): ?string
 	{
 		return $this->type;
 	}

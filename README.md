@@ -1,5 +1,5 @@
 # Map
-A simple Library for PHP maps
+A simple library for typesafe PHP arrays 
 
 ## Installation
 Just run `composer require regnerisch/map`

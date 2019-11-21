@@ -9,6 +9,16 @@ use Regnerisch\Sets\Types\StringType;
 
 class SetTest extends TestCase
 {
+	public function testCount(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			4,
+			$map->count()
+		);
+	}
+
 	public function testDiff(): void
 	{
 		$map = new Set(['A', 'B', 'C', 'D'], new StringType());

@@ -23,6 +23,11 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
 		}
 	}
 
+	public function count()
+	{
+		return count($this->map);
+	}
+
 	public function diff(SetInterface ...$map): self
 	{
 		$arrays = [];
@@ -178,10 +183,5 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
 	public function getIterator()
 	{
 		return new \ArrayIterator($this->map);
-	}
-
-	public function count()
-	{
-		return count($this->map);
 	}
 }

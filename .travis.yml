@@ -1,0 +1,21 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+
+branches:
+  only:
+    - master
+
+before_script:
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - phpunit --bootstrap vendor/autoload.php --coverage-clover coverage.xml --whitelist src tests
+
+cache:
+  directories:
+    - $HOME/.composer/cache

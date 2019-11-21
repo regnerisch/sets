@@ -1,5 +1,6 @@
 # Sets
 [![Build Status](https://travis-ci.org/regnerisch/sets.svg?branch=master)](https://travis-ci.org/regnerisch/sets)
+[![codecov](https://codecov.io/gh/regnerisch/sets/branch/master/graph/badge.svg)](https://codecov.io/gh/regnerisch/sets)
 
 A simple library for typesafe PHP arrays 
 

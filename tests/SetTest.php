@@ -1,118 +1,228 @@
 <?php
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
-use Regnerisch\Sets\BoolSet;
-use Regnerisch\Sets\DetectTypeSet;
-use Regnerisch\Sets\DoubleSet;
-use Regnerisch\Sets\InstanceSet;
-use Regnerisch\Sets\IntegerSet;
-use Regnerisch\Sets\Interfaces\SetInterface;
-use Regnerisch\Sets\MixedSet;
 use Regnerisch\Sets\Set;
-use Regnerisch\Sets\StringSet;
-use Regnerisch\Sets\TypeSet;
+use Regnerisch\Sets\Types\StringType;
 
 class SetTest extends TestCase
 {
-	public function testBoolSet(): void
+	public function testDiff(): void
 	{
-		$map = new BoolSet([true, false, false, true]);
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+		$map1 = new Set(['A', 'C'], new StringType());
+		$map2 = new Set(['D'], new StringType());
+
 		$this->assertEquals(
-			[true, false, false, true],
-			$map->toArray()
+			['B', 'D'],
+			$map->diff($map1)->toArray()
 		);
 
-		$this->expectException(InvalidArgumentException::class);
-		new BoolSet([true, false, 0, true]);
-	}
-
-	public function testDetectTypeSet(): void
-	{
-		$map = new DetectTypeSet([[], [], [], []]);
 		$this->assertEquals(
-			[[], [], [], []],
-			$map->toArray()
-		);
-
-		$map = new DetectTypeSet([]);
-		$this->assertNull($map->getType());
-
-		$this->expectException(InvalidArgumentException::class);
-		new DetectTypeSet([[], [], '[]', []]);
-	}
-
-	public function testDoubleSet(): void
-	{
-		$map = new DoubleSet([1.1, 1.2, 1.3, 1.4]);
-		$this->assertEquals(
-			[1.1, 1.2, 1.3, 1.4],
-			$map->toArray()
-		);
-
-		$this->expectException(InvalidArgumentException::class);
-		new DoubleSet([1.1, 1.2, 1.3, 1]);
-	}
-
-	public function testIntegerSet(): void
-	{
-		$map = new IntegerSet([1, 2, 3, 4]);
-		$this->assertEquals(
-			[1, 2, 3, 4],
-			$map->toArray()
-		);
-
-		$this->expectException(InvalidArgumentException::class);
-		new IntegerSet(['1', 2, 3, 4]);
-	}
-
-	public function testInstanceSet(): void
-	{
-		$map = new InstanceSet([new BoolSet([]), new DoubleSet([])], SetInterface::class);
-		$this->assertEquals(
-			[new BoolSet([]), new DoubleSet([])],
-			$map->toArray()
-		);
-
-		$map = new InstanceSet([new BoolSet([]), new DoubleSet([])], Set::class);
-		$this->assertEquals(
-			[new BoolSet([]), new DoubleSet([])],
-			$map->toArray()
-		);
-
-		$this->expectException(InvalidArgumentException::class);
-		new InstanceSet([new BoolSet([]), new DoubleSet([]), new stdClass()], SetInterface::class);
-	}
-
-	public function testMixedSet(): void
-	{
-		$map = new MixedSet([true, 1.2, 3, 'D']);
-		$this->assertEquals(
-			[true, 1.2, 3, 'D'],
-			$map->toArray()
+			['B'],
+			$map->diff($map1, $map2)->toArray()
 		);
 	}
 
-	public function testStringSet(): void
+	public function testEach(): void
 	{
-		$map = new StringSet(['A', 'B', 'C', 'D']);
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$newMap = $map->each(static function ($item) {
+			return '_' . $item . '_';
+		});
+
 		$this->assertEquals(
 			['A', 'B', 'C', 'D'],
 			$map->toArray()
 		);
 
-		$this->expectException(InvalidArgumentException::class);
-		new StringSet(['A', ['B'], 'C', 'D']);
+		$this->assertEquals(
+			['_A_', '_B_', '_C_', '_D_'],
+			$newMap->toArray()
+		);
 	}
 
-	public function testTypeSet(): void
+	public function testFilter(): void
 	{
-		$map = new TypeSet([[], [], [], []], 'array');
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$newMap = $map->filter(static function ($item) {
+			return in_array($item, ['A', 'D']);
+		});
+
 		$this->assertEquals(
-			[[], [], [], []],
+			['A', 'B', 'C', 'D'],
 			$map->toArray()
 		);
 
-		$this->expectException(InvalidArgumentException::class);
-		new TypeSet([[], [], '[]', []], 'array');
+		$this->assertEquals(
+			['A', 'D'],
+			$newMap->toArray()
+		);
+	}
+
+	public function testGet(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			'A',
+			$map->get(0)
+		);
+	}
+
+	public function testHas(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertTrue($map->has('A'));
+		$this->assertFalse($map->has('E'));
+	}
+
+	public function testIntersect(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+		$map1 = new Set(['A', 'C'], new StringType());
+		$map2 = new Set(['A'], new StringType());
+
+		$this->assertEquals(
+			['A', 'C'],
+			$map->intersect($map1)->toArray()
+		);
+
+		$this->assertEquals(
+			['A'],
+			$map->intersect($map1, $map2)->toArray()
+		);
+	}
+
+	public function testPad(): void
+	{
+		$map = new Set(['A', 'B'], new StringType());
+
+		$this->assertEquals(
+			['A', 'B', 'C', 'C'],
+			$map->pad(4, 'C')->toArray()
+		);
+
+		$this->assertEquals(
+			['C', 'C', 'A', 'B'],
+			$map->pad(-4, 'C')->toArray()
+		);
+	}
+
+	public function testPush(): void
+	{
+		$map = new Set(['A', 'B', 'C'], new StringType());
+		$map->push('D');
+
+		$this->assertEquals(
+			['A', 'B', 'C', 'D'],
+			$map->toArray()
+		);
+
+		$this->expectException(TypeError::class);
+		$map->push(1);
+	}
+
+	public function testPop(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			'D',
+			$map->pop()
+		);
+
+		$this->assertEquals(
+			['A', 'B', 'C'],
+			$map->toArray()
+		);
+	}
+
+	public function testReverse(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			['D', 'C', 'B', 'A'],
+			$map->reverse()->toArray()
+		);
+	}
+
+	public function testSearch(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			2,
+			$map->search('C')
+		);
+	}
+
+	public function testShift(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			'A',
+			$map->shift()
+		);
+	}
+
+	public function testSlice(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			['C', 'D'],
+			$map->slice(2)->toArray()
+		);
+
+		$this->assertEquals(
+			['B', 'C'],
+			$map->slice(-3, 2)->toArray()
+		);
+	}
+
+	public function testSort(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			['D', 'C', 'B', 'A'],
+			$map->sort(static function ($a, $b) {
+				return -1 * strcmp($a, $b);
+			})->toArray()
+		);
+	}
+
+	public function testSplice(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			['A', 'E', 'F', 'D'],
+			$map->splice(1, 2, ['E', 'F'])->toArray()
+		);
+	}
+
+	public function shuffle(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertIsArray($map->toArray());
+	}
+
+	public function testUnique(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D', 'A'], new StringType());
+
+		$this->assertEquals(
+			['A', 'B', 'C', 'D'],
+			$map->unique()->toArray()
+		);
 	}
 }

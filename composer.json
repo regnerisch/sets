@@ -1,6 +1,6 @@
 {
     "name": "regnerisch/sets",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "A simple map library",
     "type": "library",
     "license": "ISC",
@@ -22,6 +22,7 @@
         "phpunit/phpunit": "^8.4"
     },
     "scripts": {
+        "fix": "php-cs-fixer fix --allow-risky=yes",
         "tests": "vendor/bin/phpunit tests"
     }
 }

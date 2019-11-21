@@ -11,7 +11,8 @@ return PhpCsFixer\Config::create()
 		'@PSR2' => true,
 		'@Symfony' => true,
 		'concat_space' => ['spacing' => 'one'],
-		'indentation_type' => true
+		'indentation_type' => true,
+		'declare_strict_types' => true,
 	])
 	->setIndent("\t")
 	->setFinder($finder);

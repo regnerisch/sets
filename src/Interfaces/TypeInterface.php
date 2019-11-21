@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Regnerisch\Sets\Interfaces;
 
-interface SetInterface
+interface TypeInterface
 {
-	public function toArray(): array;
+	public function validate(iterable $values): bool;
 }

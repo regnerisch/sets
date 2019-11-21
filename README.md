@@ -5,20 +5,21 @@ A simple library for typesafe PHP arrays
 Just run `composer require regnerisch/sets`
 
 ## Usage
-### Set classes
-You can use one of the predefined set classes:
+### Set types
+You can use one of the predefined set types:
 ```php
-$set = new BoolSet([true, false, false, true]);
-$set = new DetectTypeSet([[], [], [], []]);
-$set = new DoubleSet([1.1, 2.2, 3.3]);
-$set = new IntegerSet([1, 2, 3]);
-$set = new InstanceSet([new Car(), new Ship(), new Plane()], Transport::class);
-$set = new MixedSet(['A', 1, 1.1]);
-$set = new StringSet(['A', 'B', 'C']);
-$set = new TypeSet([new MyItem('A'), new MyItem('B')], MyItem::class);
+$set = new Set([[], [], []], new ArrayType());
+$set = new Set([true, false, false], new BoolType());
+$set = new Set([[], [], []], new DetectTypeType());
+$set = new Set([1.1, 2.2, 3.3], new FloatType());
+$set = new Set([1, 2, 3], new IntegerType());
+$set = new Set([new Car(), new Ship(), new Plane()], new InstanceType(Transport::class));
+$set = new Set(['A', 1, 1.1], new MixedType());
+$set = new Set(['A', 'B', 'C'], new StringType());
+$set = new Set([new MyItem('A'), new MyItem('B')], new TypeType(MyItem::class));
 ```
-If you pass a wrong value, an `InvalidArgumentException` will be thrown.
-When using `DetectTypeSet` the allowed type will be detected automatically from the first value. All following types must match this requirement.
+If you pass a wrong value, an `TypeError` will be thrown.
+When using `DetectTypeType` the allowed type will be detected automatically from the first value. All following types must match this requirement.
 
 ### API
 ```php
@@ -43,50 +44,26 @@ $set->unique() // same as array_unique
 All methods are (if useful or possible) immutable.
 
 ### Customize
-To create your own set just extend the `Set` class. 
+To create your own `SetType` just implement `TypeInterface` interface. 
 ```php
-class MySet extends Set
+class MySetType implements TypeInterface
 {
-    // Add some base array functionality
-    use ArrayHelper;
+	public function validate(iterable $values): bool
+	{
+		foreach ($values as $value) {
+			if ($value instanceof MyRestrictedClass::class) {
+                throw new TypeError();
+            }
+		}
 
-    public function __construct(array $array) 
-    {
-        $this->addEach($array);
-    }
-
-    protected function getType(): ?string
-    {
-        return MyType::class;
-    }
+		return true;
+	}
 }
 ```
-This creates a set which only allows values from `MyType` class. Now you can add custom functions and extend functionality.
-
-If you use `ArrayHelper` trait you may also overwrite its `instanceFromArray` method, if your constructor uses another pattern than `__construct(array $array)`
+This creates a `SetType` which only allows values from `MyRestrictedClass` class. You can than use it with `Set`:
 ```php
-class MySet extends Set
-{
-    // Add some base array functionality
-    use ArrayHelper;
-
-    public function __construct(array $array, $customParam1, $customParam2) 
-    {
-        $this->addEach($array);
-
-        // Do custom things
-    }
-
-    protected function getType(): ?string
-    {
-        return MyType::class;
-    }
-
-    protected function instanceFromArray(array $array) 
-    {
-        return new self($array, $this->myCustomParam1, 'MyCustomParam2');
-    }
-} 
+new Set($arrayWithMyRestrictedClasses, new MySetType());
 ```
+
 ## Tests
 For running tests just clone the repository, than run `composer install` and `composer tests`.

@@ -28,10 +28,12 @@ $set->each($callable) // same as array_map
 $set->filter($callable) // same as array_filter
 $set->get(0) // get value with index 0
 $set->has('A') // check whether a value exists
+$set->implode($glue) // same as implode
 $set->intersect($set1, $set2) // same as array_intersect
 $set->pad($size, $defaultValue) // same as array_pad
 $set->push($value) // same as array_push
 $set->pop() // same as array_pop
+$set->reduce($callable, $initial) // same as array_reduce
 $set->reverse() // same as array_reverse
 $set->search($value) // same as array_search
 $set->shift() // same as array_shift
@@ -40,6 +42,11 @@ $set->sort($callable) // same as usort
 $set->splice($offset, $length, $replacement) // same as array_splice
 $set->shuffle() // same as shuffle
 $set->unique() // same as array_unique
+$set->walk($callable, $userdata) // same as array_walk
+
+// Special functions
+$set->toArray()
+$set->toJson()
 ```
 All methods are (if useful or possible) immutable.
 

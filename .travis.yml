@@ -15,6 +15,9 @@ before_script:
 script:
   - phpunit --bootstrap vendor/autoload.php --coverage-clover coverage.xml --whitelist src tests
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 cache:
   directories:
     - $HOME/.composer/cache

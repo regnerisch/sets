@@ -18,7 +18,7 @@ $set = new Set(['A', 1, 1.1], new MixedType());
 $set = new Set(['A', 'B', 'C'], new StringType());
 $set = new Set([new MyItem('A'), new MyItem('B')], new TypeType(MyItem::class));
 ```
-If you pass a wrong value, an `TypeError` will be thrown.
+If you pass a wrong value, a `TypeError` will be thrown.
 When using `DetectTypeType` the allowed type will be detected automatically from the first value. All following types must match this requirement.
 
 ### API
@@ -52,8 +52,8 @@ class MySetType implements TypeInterface
 	{
 		foreach ($values as $value) {
 			if ($value instanceof MyRestrictedClass::class) {
-                throw new TypeError();
-            }
+                		throw new TypeError();
+            		}
 		}
 
 		return true;

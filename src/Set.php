@@ -59,6 +59,11 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
 		return in_array($value, $this->map, true);
 	}
 
+	public function implode(string $glue = '')
+	{
+		return implode($glue, $this->map);
+	}
+
 	public function intersect(SetInterface ...$map): self
 	{
 		$arrays = [];
@@ -90,6 +95,11 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
 	public function pop()
 	{
 		return array_pop($this->map);
+	}
+
+	public function reduce(callable $callable, $initial = null)
+	{
+		return array_reduce($this->map, $callable, $initial);
 	}
 
 	public function reverse(): self
@@ -150,9 +160,19 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
 		return new self($map, $this->type);
 	}
 
+	public function walk(callable $callable, $userdata = null): bool
+	{
+		return array_walk($this->map, $callable, $userdata);
+	}
+
 	public function toArray(): array
 	{
 		return $this->map;
+	}
+
+	public function toJson(int $options = 0, int $depth = 512): string
+	{
+		return json_encode($this->map, $options, $depth);
 	}
 
 	public function getIterator()

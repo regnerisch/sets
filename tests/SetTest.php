@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Regnerisch\Sets\Set;
+use Regnerisch\Sets\Types\IntegerType;
 use Regnerisch\Sets\Types\StringType;
 
 class SetTest extends TestCase
@@ -81,6 +82,21 @@ class SetTest extends TestCase
 		$this->assertFalse($map->has('E'));
 	}
 
+	public function testImplode(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			'ABCD',
+			$map->implode()
+		);
+
+		$this->assertEquals(
+			'A_B_C_D',
+			$map->implode('_')
+		);
+	}
+
 	public function testIntersect(): void
 	{
 		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
@@ -139,6 +155,20 @@ class SetTest extends TestCase
 		$this->assertEquals(
 			['A', 'B', 'C'],
 			$map->toArray()
+		);
+	}
+
+	public function testReduce(): void
+	{
+		$map = new Set([1, 2, 3, 4], new IntegerType());
+
+		$value = $map->reduce(static function ($carry, $item) {
+			return $carry * $item;
+		}, 10);
+
+		$this->assertEquals(
+			240,
+			$value
 		);
 	}
 
@@ -223,6 +253,30 @@ class SetTest extends TestCase
 		$this->assertEquals(
 			['A', 'B', 'C', 'D'],
 			$map->unique()->toArray()
+		);
+	}
+
+	public function testWalk(): void
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$map->walk(static function (&$item, $index) {
+			$item = '_' . $item . '_';
+		});
+
+		$this->assertEquals(
+			['_A_', '_B_', '_C_', '_D_'],
+			$map->toArray()
+		);
+	}
+
+	public function testToJson()
+	{
+		$map = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+		$this->assertEquals(
+			'["A","B","C","D"]',
+			$map->toJson()
 		);
 	}
 }

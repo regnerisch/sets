@@ -1,4 +1,6 @@
 # Sets
+[![Build Status](https://travis-ci.org/regnerisch/sets.svg?branch=master)](https://travis-ci.org/regnerisch/sets)
+
 A simple library for typesafe PHP arrays 
 
 ## Installation

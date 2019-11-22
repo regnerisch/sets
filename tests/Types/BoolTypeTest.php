@@ -8,20 +8,20 @@ use Regnerisch\Sets\Types\BoolType;
 
 class BoolTypeTest extends TestCase
 {
-	public function testArray(): void
-	{
-		$set = new Set([true, true, false, false], new BoolType());
+    public function testArray(): void
+    {
+        $set = new Set([true, true, false, false], new BoolType());
 
-		$this->assertEquals(
-			[true, true, false, false],
-			$set->toArray()
-		);
-	}
+        $this->assertEquals(
+            [true, true, false, false],
+            $set->toArray()
+        );
+    }
 
-	public function testWrongValue(): void
-	{
-		$this->expectException(TypeError::class);
+    public function testWrongValue(): void
+    {
+        $this->expectException(TypeError::class);
 
-		new Set([true, true, false, 1], new BoolType());
-	}
+        new Set([true, true, false, 1], new BoolType());
+    }
 }

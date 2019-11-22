@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `toJson` function (`$set->toJson($options, $depth)`)
 - Add `implode` function (`$set->implode($glue)`)
 
+### Changed
+- Code is now full PSR2 compatible
+
 ## [0.6.0] - 2019-11-21
 ### Changed
 - Complete rewrite of sets. Sets are now handled by `Set` with a special `SetType` which handles type safety. Consider documentation.

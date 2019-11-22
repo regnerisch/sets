@@ -8,8 +8,8 @@ use Regnerisch\Sets\Interfaces\TypeInterface;
 
 final class MixedType implements TypeInterface
 {
-	public function validate(iterable $values): bool
-	{
-		return true;
-	}
+    public function validate(iterable $values): bool
+    {
+        return true;
+    }
 }

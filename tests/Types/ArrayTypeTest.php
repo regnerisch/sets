@@ -8,20 +8,20 @@ use Regnerisch\Sets\Types\ArrayType;
 
 class ArrayTypeTest extends TestCase
 {
-	public function testArray(): void
-	{
-		$set = new Set([['a', 1, 1.4], [], [true, new stdClass()], []], new ArrayType());
+    public function testArray(): void
+    {
+        $set = new Set([['a', 1, 1.4], [], [true, new stdClass()], []], new ArrayType());
 
-		$this->assertEquals(
-			[['a', 1, 1.4], [], [true, new stdClass()], []],
-			$set->toArray()
-		);
-	}
+        $this->assertEquals(
+            [['a', 1, 1.4], [], [true, new stdClass()], []],
+            $set->toArray()
+        );
+    }
 
-	public function testWrongValue(): void
-	{
-		$this->expectException(TypeError::class);
+    public function testWrongValue(): void
+    {
+        $this->expectException(TypeError::class);
 
-		new Set([['a', 1, 1.4], [], [true, new stdClass()], '[]'], new ArrayType());
-	}
+        new Set([['a', 1, 1.4], [], [true, new stdClass()], '[]'], new ArrayType());
+    }
 }

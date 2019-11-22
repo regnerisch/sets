@@ -8,13 +8,13 @@ use Regnerisch\Sets\Types\MixedType;
 
 class MixedTypeTest extends TestCase
 {
-	public function testArray(): void
-	{
-		$set = new Set([[], true, 1, 1.2, 'A'], new MixedType());
+    public function testArray(): void
+    {
+        $set = new Set([[], true, 1, 1.2, 'A'], new MixedType());
 
-		$this->assertEquals(
-			[[], true, 1, 1.2, 'A'],
-			$set->toArray()
-		);
-	}
+        $this->assertEquals(
+            [[], true, 1, 1.2, 'A'],
+            $set->toArray()
+        );
+    }
 }

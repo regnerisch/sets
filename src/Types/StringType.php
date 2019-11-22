@@ -8,16 +8,16 @@ use Regnerisch\Sets\Interfaces\TypeInterface;
 
 final class StringType implements TypeInterface
 {
-	public function validate(iterable $values): bool
-	{
-		foreach ($values as $value) {
-			$this->validateSingle($value);
-		}
+    public function validate(iterable $values): bool
+    {
+        foreach ($values as $value) {
+            $this->validateSingle($value);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	private function validateSingle(string $value): void
-	{
-	}
+    private function validateSingle(string $value): void
+    {
+    }
 }

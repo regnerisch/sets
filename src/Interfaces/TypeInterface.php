@@ -6,5 +6,5 @@ namespace Regnerisch\Sets\Interfaces;
 
 interface TypeInterface
 {
-	public function validate(iterable $values): bool;
+    public function validate(iterable $values): bool;
 }

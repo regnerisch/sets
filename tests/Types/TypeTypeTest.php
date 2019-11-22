@@ -8,20 +8,20 @@ use Regnerisch\Sets\Types\TypeType;
 
 class TypeTypeTest extends TestCase
 {
-	public function testArray(): void
-	{
-		$set = new Set(['A', 'B', 'C', 'D'], new TypeType('string'));
+    public function testArray(): void
+    {
+        $set = new Set(['A', 'B', 'C', 'D'], new TypeType('string'));
 
-		$this->assertEquals(
-			['A', 'B', 'C', 'D'],
-			$set->toArray()
-		);
-	}
+        $this->assertEquals(
+            ['A', 'B', 'C', 'D'],
+            $set->toArray()
+        );
+    }
 
-	public function testWrongValue(): void
-	{
-		$this->expectException(TypeError::class);
+    public function testWrongValue(): void
+    {
+        $this->expectException(TypeError::class);
 
-		new Set([new stdClass(), 'A'], new TypeType(stdClass::class));
-	}
+        new Set([new stdClass(), 'A'], new TypeType(stdClass::class));
+    }
 }

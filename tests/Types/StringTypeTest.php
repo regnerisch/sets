@@ -8,20 +8,20 @@ use Regnerisch\Sets\Types\StringType;
 
 class StringTypeTest extends TestCase
 {
-	public function testArray(): void
-	{
-		$set = new Set(['A', 'B', 'C', 'D'], new StringType());
+    public function testArray(): void
+    {
+        $set = new Set(['A', 'B', 'C', 'D'], new StringType());
 
-		$this->assertEquals(
-			['A', 'B', 'C', 'D'],
-			$set->toArray()
-		);
-	}
+        $this->assertEquals(
+            ['A', 'B', 'C', 'D'],
+            $set->toArray()
+        );
+    }
 
-	public function testWrongValue(): void
-	{
-		$this->expectException(TypeError::class);
+    public function testWrongValue(): void
+    {
+        $this->expectException(TypeError::class);
 
-		new Set(['A', 'B', 'C', 1], new StringType());
-	}
+        new Set(['A', 'B', 'C', 1], new StringType());
+    }
 }

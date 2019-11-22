@@ -147,6 +147,15 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         return array_shift($this->map);
     }
 
+    public function shuffle(): self
+    {
+        $map = $this->map;
+
+        shuffle($map);
+
+        return new self($map, $this->type);
+    }
+
     public function slice(int $offset, ?int $length = null): self
     {
         $map = array_slice($this->map, $offset, $length);
@@ -168,15 +177,6 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         $map = $this->map;
 
         array_splice($map, $offset, $length ?? $this->count(), $replacement);
-
-        return new self($map, $this->type);
-    }
-
-    public function shuffle(): self
-    {
-        $map = $this->map;
-
-        shuffle($map);
 
         return new self($map, $this->type);
     }

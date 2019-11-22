@@ -258,6 +258,33 @@ class SetTest extends TestCase
         );
     }
 
+    public function testShuffle(): void
+    {
+        $set = new Set(['A', 'B', 'C', 'D'], new StringType());
+
+        $newSet = $set->shuffle();
+
+        $this->assertContains(
+            'A',
+            $newSet->toArray()
+        );
+
+        $this->assertContains(
+            'B',
+            $newSet->toArray()
+        );
+
+        $this->assertContains(
+            'C',
+            $newSet->toArray()
+        );
+
+        $this->assertContains(
+            'D',
+            $newSet->toArray()
+        );
+    }
+
     public function testSlice(): void
     {
         $set = new Set(['A', 'B', 'C', 'D'], new StringType());

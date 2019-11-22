@@ -22,7 +22,7 @@ final class DetectTypeType implements TypeInterface
         return true;
     }
 
-    private function getTypeFromFirstValue(iterable $values)
+    private function getTypeFromFirstValue(iterable $values): string
     {
         if (is_array($values)) {
             $array = $values;

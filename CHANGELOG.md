@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2019-11-22
+### Added
+- Some methods did not had a return type, added them 
+
 ## [1.0.0] - 2019-11-22
 ### Added
 - Add `chunk` function (`$set->chunk($size)`)

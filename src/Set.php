@@ -24,12 +24,12 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         }
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->map);
     }
 
-    public function chunk(int $size)
+    public function chunk(int $size): self
     {
         $chunks = array_chunk($this->map, $size);
 
@@ -82,7 +82,7 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         return in_array($value, $this->map, true);
     }
 
-    public function implode(string $glue = '')
+    public function implode(string $glue = ''): string
     {
         return implode($glue, $this->map);
     }
@@ -181,7 +181,7 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         return new self($map, $this->type);
     }
 
-    public function unique(int $sortFlags = SORT_STRING)
+    public function unique(int $sortFlags = SORT_STRING): self
     {
         $map = array_unique($this->map, $sortFlags);
 

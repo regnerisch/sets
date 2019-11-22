@@ -6,6 +6,7 @@ namespace Regnerisch\Sets;
 
 use Regnerisch\Sets\Interfaces\SetInterface;
 use Regnerisch\Sets\Interfaces\TypeInterface;
+use Regnerisch\Sets\Types\InstanceType;
 
 class Set implements \IteratorAggregate, \Countable, SetInterface
 {
@@ -26,6 +27,18 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
     public function count()
     {
         return count($this->map);
+    }
+
+    public function chunk(int $size)
+    {
+        $chunks = array_chunk($this->map, $size);
+
+        $arrays = [];
+        foreach ($chunks as $chunk) {
+            $arrays[] = new self($chunk, $this->type);
+        }
+
+        return new self($arrays, new InstanceType(self::class));
     }
 
     public function diff(SetInterface ...$map): self
@@ -54,6 +67,11 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         return new self($map, $this->type);
     }
 
+    public function first()
+    {
+        return $this->map[0];
+    }
+
     public function get(int $key)
     {
         return $this->map[$key] ?? null;
@@ -79,6 +97,11 @@ class Set implements \IteratorAggregate, \Countable, SetInterface
         $map = array_intersect($this->map, ...$arrays);
 
         return new self($map, $this->type);
+    }
+
+    public function last()
+    {
+        return end($this->map);
     }
 
     public function pad(int $size, $value): self

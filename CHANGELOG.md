@@ -6,13 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Add `chunk` function (`$set->chunk($size)`)
+- Add `first` function (`$set->first()`)
+- Add `last` function (`$set->last()`)
 - Add `reduce` function (`$set->reduce($callable, $initial)`)
 - Add `walk` function (`$set->walk($callable, $userdata)`)
-- Add `toJson` function (`$set->toJson($options, $depth)`)
 - Add `implode` function (`$set->implode($glue)`)
+- Add `toJson` function (`$set->toJson($options, $depth)`)
 
 ### Changed
-- Code is now full PSR2 compatible
+- Code is now full PSR2 compatible [#2](https://github.com/regnerisch/sets/pull/2)
 
 ## [0.6.0] - 2019-11-21
 ### Changed

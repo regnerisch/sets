@@ -26,13 +26,16 @@ When using `DetectTypeType` the allowed type will be detected automatically from
 
 ### API
 ```php
+$set->chunk($size) // same as array_chunk
 $set->diff($set1, $set2) // same as array_diff
 $set->each($callable) // same as array_map
 $set->filter($callable) // same as array_filter
-$set->get(0) // get value with index 0
+$set->first() // returns first value of set
+$set->get(4) // get value with index 4
 $set->has('A') // check whether a value exists
 $set->implode($glue) // same as implode
 $set->intersect($set1, $set2) // same as array_intersect
+$set->last() // returns last value of set
 $set->pad($size, $defaultValue) // same as array_pad
 $set->push($value) // same as array_push
 $set->pop() // same as array_pop
@@ -58,16 +61,16 @@ To create your own `SetType` just implement `TypeInterface` interface.
 ```php
 class MySetType implements TypeInterface
 {
-	public function validate(iterable $values): bool
-	{
-		foreach ($values as $value) {
-			if ($value instanceof MyRestrictedClass::class) {
-                		throw new TypeError();
-            		}
-		}
+    public function validate(iterable $values): bool
+    {
+        foreach ($values as $value) {
+            if ($value instanceof MyRestrictedClass::class) {
+                throw new TypeError();
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
 ```
 This creates a `SetType` which only allows values from `MyRestrictedClass` class. You can than use it with `Set`:

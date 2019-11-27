@@ -76,7 +76,7 @@ class SetTest extends TestCase
         $set = new Set(['A', 'B', 'C', 'D'], new StringType());
 
         $newMap = $set->filter(static function ($item) {
-            return in_array($item, ['A', 'D']);
+            return \in_array($item, ['A', 'D']);
         });
 
         $this->assertEquals(
@@ -307,7 +307,7 @@ class SetTest extends TestCase
         $this->assertEquals(
             ['D', 'C', 'B', 'A'],
             $set->sort(static function ($a, $b) {
-                return -1 * strcmp($a, $b);
+                return -1 * \strcmp($a, $b);
             })->toArray()
         );
     }

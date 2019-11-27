@@ -1,16 +1,11 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-	->in([
-		__DIR__ . '/src',
-		__DIR__ . '/tests',
-	]);
+$config = new \Regnerisch\PhpCsFixerConfig\Php72Config();
 
-return PhpCsFixer\Config::create()
-	->setRules([
-		'@PSR2' => true,
-		'@Symfony' => true,
-		'concat_space' => ['spacing' => 'one'],
-		'declare_strict_types' => true,
-	])
-	->setFinder($finder);
+$config->getFinder()
+    ->in([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ]);
+
+return $config;

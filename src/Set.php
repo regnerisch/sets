@@ -8,7 +8,7 @@ use Regnerisch\Sets\Interfaces\SetInterface;
 use Regnerisch\Sets\Interfaces\TypeInterface;
 use Regnerisch\Sets\Types\InstanceType;
 
-class Set implements \IteratorAggregate, \Countable, SetInterface
+class Set implements \Countable, \IteratorAggregate, SetInterface
 {
     protected $map = [];
     protected $type;

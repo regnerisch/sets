@@ -322,13 +322,6 @@ class SetTest extends TestCase
         );
     }
 
-    public function shuffle(): void
-    {
-        $set = new Set(['A', 'B', 'C', 'D'], new StringType());
-
-        $this->assertIsArray($set->toArray());
-    }
-
     public function testUnique(): void
     {
         $set = new Set(['A', 'B', 'C', 'D', 'A'], new StringType());
